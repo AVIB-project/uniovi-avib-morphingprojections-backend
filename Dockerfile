@@ -1,7 +1,7 @@
 FROM openjdk:17-alpine
 
 # Refer to Maven build -> finalName
-ARG JAR_FILE=target/poc-uniovi-avib-data-projection-backend-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/uniovi-avib-morphingprojections-backend-0.0.1-SNAPSHOT.jar
 
 # cd /opt/app
 WORKDIR /opt/app
