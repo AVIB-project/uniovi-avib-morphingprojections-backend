@@ -72,9 +72,12 @@ public class Patient {
 
     @Field(name="ajcc_pathologic_t")
 	private String ajccPathologicT;
+
+    @Field(name="ajcc_pathologic_stage")
+	private String ajccPathologicStage;
     
     @Field(name="year_of_diagnosis")
-	private String yearOfDiagnosis;
+	private int yearOfDiagnosis;
 
     @Field(name="age_at_diagnosis")
 	private int ageAtDiagnosis;
