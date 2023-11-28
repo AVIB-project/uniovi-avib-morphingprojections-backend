@@ -1,0 +1,47 @@
+{"properties": [
+  {
+    "name": "spring.elasticsearch.host",
+    "type": "java.lang.String",
+    "description": "Elasticsearch host name"
+  },
+  {
+    "name": "spring.elasticsearch.port",
+    "type": "java.lang.String",
+    "description": "Elasticsearch port number"
+  },
+  {
+    "name": "spring.elasticsearch.username",
+    "type": "java.lang.String",
+    "description": "Elasticsearch username credentials"
+  },
+  {
+    "name": "spring.elasticsearch.password",
+    "type": "java.lang.String",
+    "description": "Elasticsearch password credentials"
+  },
+  {
+    "name": "spring.elasticsearch.subfolder",
+    "type": "java.lang.String",
+    "description": "Elasticsearch subfolder root path"
+  },
+  {
+    "name": "spring.elasticsearch.useSSL",
+    "type": "java.lang.String",
+    "description": "Use Elasticsearch TLS connection"
+  },
+  {
+    "name": "spring.elasticsearch.verifyHostnames",
+    "type": "java.lang.String",
+    "description": "Verify Elasticsearch certificate hosts included"
+  },    
+  {
+    "name": "spring.elasticsearch.validateCertificates",
+    "type": "java.lang.String",
+    "description": "Validate Elasticsearch certificate"
+  },
+  {
+    "name": "spring.elasticsearch.caFile",
+    "type": "java.lang.String",
+    "description": "Root CA certificate file to validate Elasticsearch certificate"
+  }
+]}

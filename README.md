@@ -1,20 +1,67 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Description
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+PoC Backend microservice to recover random datasets generated for Elasticsearch
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+# Configurations
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Microservice configuration table
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+| Attribute                       			|      Description                        					     |  Default Value    |
+|:-----------------------------------------:|:--------------------------------------------------------------:|:-----------------:|
+| server.port                    		    | Default microservice listening port     						 | 8080              |
+| spring.elasticsearch.username   			| Elasticsearch username basic credential 					     | elastic           |
+| spring.elasticsearch.password   			| Elasticsearch password basic credential 					     | password          |
+| spring.elasticsearch.host       			| Elasticsearch hostname                  						 | localhost         |
+| spring.elasticsearch.port       			| Elasticsearch port          			  						 | 9200              |
+| spring.elasticsearch.pathPrefix 			| Elasticsearch path prefix      		        				 | /                 |
+| spring.elasticsearch.verifyHostnames      | Verify Elasticsearch certificates hostnames   				 | false	   	     |
+| spring.elasticsearch.validateCertificates | Validate Elasticsearch certificate sign						 | false	         |
+| spring.elasticsearch.caFile               | ca certificate name to validate Elasticsearch certificate sign |              	 |
+
+# Local commands
+Clear compile microservice
+
+```
+./mvnw clean install
+```
+
+Start microservice
+
+```
+./mvnw spring-boot:run
+```
+
+# docker build
+
+compile the docker image for local environment
+
+```
+docker build -t poc-uniovi-avib-data-projection-backend .
+```
+
+compile the docker image for avib environment
+
+```
+docker build --build-arg ARG_SPRING_PROFILES_ACTIVE=avib -t poc-uniovi-avib-data-projection-backend:1.0.0 .
+```
+
+compile image and push to azure container registry
+
+```
+docker tag poc-uniovi-avib-data-projection-backend:1.0.0 avibdocker.azurecr.io/poc-uniovi-avib-data-projection-backend:1.0.0
+
+docker push avibdocker.azurecr.io/poc-uniovi-avib-data-projection-backend:1.0.0
+
+```
+
+# test docker
+
+Local test of your image. Start a container like this:
+
+```
+docker run --name poc-uniovi-avib-data-projection-backend -p 8080:8080 -d poc-uniovi-avib-data-projection-backend
+```
+
+# Microservices architecture
+
+![PoC Elastic SpringBoot](captures/Diagrams-PoC-Elastic-Java.drawio.png "PoC Elastic SpringBoot")
