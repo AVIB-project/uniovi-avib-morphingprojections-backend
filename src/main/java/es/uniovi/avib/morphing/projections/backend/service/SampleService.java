@@ -14,19 +14,19 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import es.uniovi.avib.morphing.projections.backend.domain.Hit;
-import es.uniovi.avib.morphing.projections.backend.domain.Patient;
+import es.uniovi.avib.morphing.projections.backend.domain.Sample;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
 @Service
-public class PatientService {
+public class SampleService {
 	private ElasticsearchOperations operations;
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
 	@SuppressWarnings("unchecked")
-	public List<Patient> findAll(String indexName) {				
+	public List<Sample> findAll(String indexName) {				
 		AbstractElasticsearchTemplate template = (AbstractElasticsearchTemplate)operations;
 		
     	IndexCoordinates index = IndexCoordinates.of(indexName);
@@ -36,24 +36,24 @@ public class PatientService {
             .withReactiveBatchSize(1000)
             .build();
     
-        SearchScrollHits<Patient> scroll = template.searchScrollStart(1000, query, Patient.class, index);
+        SearchScrollHits<Sample> scroll = template.searchScrollStart(1000, query, Sample.class, index);
         
-        List<Patient> patients = new ArrayList<>();
+        List<Sample> samples = new ArrayList<>();
         String scrollId = scroll.getScrollId();
         
         while (scroll.hasSearchHits()) {                      	
-        	patients.addAll((List<Patient>)SearchHitSupport.unwrapSearchHits(scroll.getSearchHits()));
+        	samples.addAll((List<Sample>)SearchHitSupport.unwrapSearchHits(scroll.getSearchHits()));
         		
-        	simpMessagingTemplate.convertAndSend("/topic/patients/hit", new Hit(patients.size(), scroll.getTotalHits()));
+        	simpMessagingTemplate.convertAndSend("/topic/samples/hit", new Hit(samples.size(), scroll.getTotalHits()));
         	
         	scrollId = scroll.getScrollId();
-        	scroll = template.searchScrollContinue(scrollId, 1000, Patient.class, index);
+        	scroll = template.searchScrollContinue(scrollId, 1000, Sample.class, index);
         }
         
         template.searchScrollClear(scrollId);
         
-        log.info("Total document hits {} for the index {}", patients.size(), indexName);  
+        log.info("Total document hits {} for the index {}", samples.size(), indexName);  
         
-        return patients;
+        return samples;
     }	
 }

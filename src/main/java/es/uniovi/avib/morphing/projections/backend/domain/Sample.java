@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Patient {
+public class Sample {
     private String id;
     
     @Field(name="project_id")
