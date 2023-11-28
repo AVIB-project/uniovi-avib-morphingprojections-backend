@@ -1,4 +1,4 @@
-package es.uniovi.edv.avispe.data.projection.backend;
+package es.uniovi.avib.morphing.projections.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

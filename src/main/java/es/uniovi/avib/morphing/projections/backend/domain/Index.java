@@ -1,4 +1,4 @@
-package es.uniovi.edv.avispe.data.projection.backend.domain;
+package es.uniovi.avib.morphing.projections.backend.domain;
 
 import lombok.Getter;
 import lombok.Setter;

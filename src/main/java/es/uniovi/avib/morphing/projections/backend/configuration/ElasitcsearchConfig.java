@@ -1,4 +1,4 @@
-package es.uniovi.edv.avispe.data.projection.backend.configuration;
+package es.uniovi.avib.morphing.projections.backend.configuration;
 
 import java.io.IOException;
 import java.security.KeyManagementException;

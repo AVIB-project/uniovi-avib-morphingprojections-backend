@@ -1,4 +1,4 @@
-package es.uniovi.edv.avispe.data.projection.backend.controller;
+package es.uniovi.avib.morphing.projections.backend.controller;
 
 import java.util.List;
 
@@ -6,10 +6,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
-import es.uniovi.edv.avispe.data.projection.backend.domain.Index;
-import es.uniovi.edv.avispe.data.projection.backend.domain.Patient;
-import es.uniovi.edv.avispe.data.projection.backend.service.PatientService;
-
+import es.uniovi.avib.morphing.projections.backend.domain.Index;
+import es.uniovi.avib.morphing.projections.backend.domain.Patient;
+import es.uniovi.avib.morphing.projections.backend.service.PatientService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

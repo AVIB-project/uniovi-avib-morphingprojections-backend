@@ -1,4 +1,4 @@
-package es.uniovi.edv.avispe.data.projection.backend.configuration;
+package es.uniovi.avib.morphing.projections.backend.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
