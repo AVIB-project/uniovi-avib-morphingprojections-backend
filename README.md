@@ -36,21 +36,21 @@ Start microservice
 compile the docker image for local environment
 
 ```
-docker build -t poc-uniovi-avib-data-projection-backend .
+docker build -t uniovi-avib-morphingprojections-backend .
 ```
 
 compile the docker image for avib environment
 
 ```
-docker build --build-arg ARG_SPRING_PROFILES_ACTIVE=avib -t poc-uniovi-avib-data-projection-backend:1.0.0 .
+docker build --build-arg ARG_SPRING_PROFILES_ACTIVE=avib -t uniovi-avib-morphingprojections-backend:1.0.0 .
 ```
 
 compile image and push to azure container registry
 
 ```
-docker tag poc-uniovi-avib-data-projection-backend:1.0.0 avibdocker.azurecr.io/poc-uniovi-avib-data-projection-backend:1.0.0
+docker tag uniovi-avib-morphingprojections-backend:1.0.0 avibdocker.azurecr.io/uniovi-avib-morphingprojections-backend:1.0.0
 
-docker push avibdocker.azurecr.io/poc-uniovi-avib-data-projection-backend:1.0.0
+docker push avibdocker.azurecr.io/uniovi-avib-morphingprojections-backend:1.0.0
 
 ```
 
