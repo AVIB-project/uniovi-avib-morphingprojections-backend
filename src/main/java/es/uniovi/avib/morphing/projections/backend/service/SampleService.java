@@ -14,7 +14,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import es.uniovi.avib.morphing.projections.backend.domain.Hit;
-import es.uniovi.avib.morphing.projections.backend.domain.Sample;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,7 +25,7 @@ public class SampleService {
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
 	@SuppressWarnings("unchecked")
-	public List<Sample> findAll(String indexName) {				
+	public List<Object> findAll(String indexName) {				
 		AbstractElasticsearchTemplate template = (AbstractElasticsearchTemplate)operations;
 		
     	IndexCoordinates index = IndexCoordinates.of(indexName);
@@ -36,18 +35,18 @@ public class SampleService {
             .withReactiveBatchSize(1000)
             .build();
     
-        SearchScrollHits<Sample> scroll = template.searchScrollStart(1000, query, Sample.class, index);
+        SearchScrollHits<Object> scroll = template.searchScrollStart(1000, query, Object.class, index);
         
-        List<Sample> samples = new ArrayList<>();
+        List<Object> samples = new ArrayList<>();
         String scrollId = scroll.getScrollId();
         
-        while (scroll.hasSearchHits()) {                      	
-        	samples.addAll((List<Sample>)SearchHitSupport.unwrapSearchHits(scroll.getSearchHits()));
+        while (scroll.hasSearchHits()) {
+        	samples.addAll((List<Object>)SearchHitSupport.unwrapSearchHits(scroll.getSearchHits()));
         		
         	simpMessagingTemplate.convertAndSend("/topic/samples/hit", new Hit(samples.size(), scroll.getTotalHits()));
         	
         	scrollId = scroll.getScrollId();
-        	scroll = template.searchScrollContinue(scrollId, 1000, Sample.class, index);
+        	scroll = template.searchScrollContinue(scrollId, 1000, Object.class, index);
         }
         
         template.searchScrollClear(scrollId);

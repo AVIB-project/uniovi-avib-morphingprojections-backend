@@ -7,7 +7,6 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 import es.uniovi.avib.morphing.projections.backend.domain.Index;
-import es.uniovi.avib.morphing.projections.backend.domain.Sample;
 import es.uniovi.avib.morphing.projections.backend.service.SampleService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +19,11 @@ public class SampleWebSocketController {
 	
 	@MessageMapping("/findAll")
 	@SendTo("/topic/samples")
-	public List<Sample> findAll(Index index) throws Exception {
+	public List<Object> findAll(Index index) throws Exception {
     	log.info("Start search documents for the index {}", index.getName());
 	    
-    	long start = System.currentTimeMillis();	
-        List<Sample> samples = sampleService.findAll(index.getName());   
+    	long start = System.currentTimeMillis();  
+    	List<Object> samples = sampleService.findAll(index.getName());
         long end = System.currentTimeMillis();
         
         log.info("Elapsed Time: "+ (end - start) / 1000F + " seconds");
