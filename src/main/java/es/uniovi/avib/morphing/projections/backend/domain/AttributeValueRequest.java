@@ -5,6 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Index {
-	private String name;
+public class AttributeValueRequest {
+	String index;
+	String name;
+
 }

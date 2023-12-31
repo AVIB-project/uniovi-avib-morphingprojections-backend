@@ -56,6 +56,7 @@ public class ElasitcsearchConfig extends ElasticsearchConfiguration {
 		                .usingSsl(getSSLContext(validateCertificates))						               
 		                .withPathPrefix(pathPrefix)
 		                .withBasicAuth(username, password)
+		                //.withSocketTimeout(Duration.ofMillis(60000))
 		                .withClientConfigurer(
 		                	ElasticsearchClients.ElasticsearchHttpClientConfigurationCallback.from(clientBuilder -> {
 		                		if (!verifyHostnames)
