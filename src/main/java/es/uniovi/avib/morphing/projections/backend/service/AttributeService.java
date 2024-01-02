@@ -20,7 +20,9 @@ import com.google.common.primitives.Floats;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import es.uniovi.avib.morphing.projections.backend.domain.AttributeName;
+import es.uniovi.avib.morphing.projections.backend.domain.AttributeResponse;
 import es.uniovi.avib.morphing.projections.backend.domain.AttributeValue;
 import es.uniovi.avib.morphing.projections.backend.domain.Hit;
 
@@ -31,7 +33,7 @@ public class AttributeService {
 	private ElasticsearchOperations operations;
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
-	private List<AttributeValue> normalize(List<AttributeValue> attributes) {
+	private AttributeResponse normalizeMinMax(AttributeResponse attributeResponse) {
 		Ordering<AttributeValue> o = new Ordering<AttributeValue>() {
 		    @Override
 		    public int compare(AttributeValue left, AttributeValue right) {
@@ -39,14 +41,14 @@ public class AttributeService {
 		    }
 		};
 		
-		AttributeValue maxAttribute = o.max(attributes);
-		AttributeValue minAttribute = o.min(attributes);
+		float maxAttribute = o.max(attributeResponse.getValues()).getValue();
+		float minAttribute = o.min(attributeResponse.getValues()).getValue();
 		
-		for (int i = 0; i < attributes.size(); i++) {
-			attributes.get(i).setValue(1 - (attributes.get(i).getValue() - minAttribute.getValue()) / (maxAttribute.getValue() - minAttribute.getValue()));
+		for (int i = 0; i < attributeResponse.getValues().size(); i++) {			
+			attributeResponse.getValues().get(i).setValue((attributeResponse.getValues().get(i).getValue() - minAttribute) / (maxAttribute - minAttribute));
 		}
 		
-		return attributes;
+		return attributeResponse;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -88,31 +90,35 @@ public class AttributeService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<AttributeValue> findAllAttributeValuesByName(String indexName, String attributeName) {
+	public AttributeResponse findAllAttributeValuesByName(String indexName, String attributeName, String attributeProjection) {
 		AbstractElasticsearchTemplate template = (AbstractElasticsearchTemplate)operations;
 		
     	IndexCoordinates index = IndexCoordinates.of(indexName);
 
+    	AttributeResponse attributeResponse = new AttributeResponse();
+    	attributeResponse.setAttribute(attributeName);
+    	attributeResponse.setProjection(attributeProjection);
+    	attributeResponse.setValues(new ArrayList<AttributeValue>());
+    	
     	String filter = "{\"match\":{\"attribute\":\""+ attributeName + "\"}}";
     	
     	Query queryFilter = StringQuery.builder(filter).build();
     	
     	Query query = NativeQuery.builder()
     			.withSourceFilter(new FetchSourceFilter(
-    					new String[] {"sample_id", "attribute", "value"}, 
+    					new String[] {"sample_id", "value"}, 
     					null))
     			.withQuery(queryFilter)
     			.build();
             	
         SearchScrollHits<AttributeValue> scroll = template.searchScrollStart(1000, query, AttributeValue.class, index);
                 
-        List<AttributeValue> attributes = new ArrayList<>();
         String scrollId = scroll.getScrollId();
         
         while (scroll.hasSearchHits()) {
-        	attributes.addAll((List<AttributeValue>)SearchHitSupport.unwrapSearchHits(scroll.getSearchHits()));
+        	attributeResponse.getValues().addAll((List<AttributeValue>)SearchHitSupport.unwrapSearchHits(scroll.getSearchHits()));
         		
-        	simpMessagingTemplate.convertAndSend("/topic/attribute/values/hit", new Hit(attributes.size(), scroll.getTotalHits()));
+        	simpMessagingTemplate.convertAndSend("/topic/attribute/values/hit", new Hit(attributeResponse.getValues().size(), scroll.getTotalHits()));
         	
         	scrollId = scroll.getScrollId();
         	scroll = template.searchScrollContinue(scrollId, 1000, AttributeValue.class, index);
@@ -120,8 +126,8 @@ public class AttributeService {
         
         template.searchScrollClear(scrollId);
         
-        log.info("Total document hits {} for the index {}", attributes.size(), indexName);  
+        log.info("Total document hits {} for the index {}", attributeResponse.getValues().size(), indexName);  
         
-        return normalize(attributes);        
+        return normalizeMinMax(attributeResponse);        
 	}	
 }
