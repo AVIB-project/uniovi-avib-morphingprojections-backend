@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import es.uniovi.avib.morphing.projections.backend.domain.AttributeValue;
 import es.uniovi.avib.morphing.projections.backend.domain.AttributeName;
 import es.uniovi.avib.morphing.projections.backend.domain.AttributeNameRequest;
 import es.uniovi.avib.morphing.projections.backend.domain.AttributeResponse;
