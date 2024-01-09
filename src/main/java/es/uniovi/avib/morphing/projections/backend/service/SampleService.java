@@ -1,5 +1,6 @@
 package es.uniovi.avib.morphing.projections.backend.service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class SampleService {
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
 	@SuppressWarnings("unchecked")
-	public List<Object> findAll(String indexName) {				
+	public List<Object> findAll(String indexName, Principal user) {				
 		AbstractElasticsearchTemplate template = (AbstractElasticsearchTemplate)operations;
 		
     	IndexCoordinates index = IndexCoordinates.of(indexName);
@@ -43,7 +44,7 @@ public class SampleService {
         while (scroll.hasSearchHits()) {
         	samples.addAll((List<Object>)SearchHitSupport.unwrapSearchHits(scroll.getSearchHits()));
         		
-        	simpMessagingTemplate.convertAndSend("/topic/samples/hit", new Hit(samples.size(), scroll.getTotalHits()));
+        	simpMessagingTemplate.convertAndSendToUser(user.getName(), "/queue/samples/hit", new Hit(samples.size(), scroll.getTotalHits()));
         	
         	scrollId = scroll.getScrollId();
         	scroll = template.searchScrollContinue(scrollId, 1000, Object.class, index);

@@ -1,5 +1,6 @@
 package es.uniovi.avib.morphing.projections.backend.service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class AttributeService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<AttributeName> findAllAttributeNamesBySample(String indexName, String sampleId) {
+	public List<AttributeName> findAllAttributeNamesBySample(String indexName, String sampleId, Principal user) {
 		AbstractElasticsearchTemplate template = (AbstractElasticsearchTemplate)operations;
 		
     	IndexCoordinates index = IndexCoordinates.of(indexName);
@@ -76,7 +77,7 @@ public class AttributeService {
         while (scroll.hasSearchHits()) {
         	attributeNames.addAll((List<AttributeName>)SearchHitSupport.unwrapSearchHits(scroll.getSearchHits()));
         		
-        	simpMessagingTemplate.convertAndSend("/topic/attribute/names/hit", new Hit(attributeNames.size(), scroll.getTotalHits()));
+        	simpMessagingTemplate.convertAndSendToUser(user.getName(), "/queue/attribute/names/hit", new Hit(attributeNames.size(), scroll.getTotalHits()));
         	
         	scrollId = scroll.getScrollId();
         	scroll = template.searchScrollContinue(scrollId, 1000, AttributeName.class, index);
@@ -90,7 +91,7 @@ public class AttributeService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public AttributeResponse findAllAttributeValuesByName(String indexName, String attributeName, String attributeProjection) {
+	public AttributeResponse findAllAttributeValuesByName(String indexName, String attributeName, String attributeProjection, Principal user) {
 		AbstractElasticsearchTemplate template = (AbstractElasticsearchTemplate)operations;
 		
     	IndexCoordinates index = IndexCoordinates.of(indexName);
@@ -118,7 +119,7 @@ public class AttributeService {
         while (scroll.hasSearchHits()) {
         	attributeResponse.getValues().addAll((List<AttributeValue>)SearchHitSupport.unwrapSearchHits(scroll.getSearchHits()));
         		
-        	simpMessagingTemplate.convertAndSend("/topic/attribute/values/hit", new Hit(attributeResponse.getValues().size(), scroll.getTotalHits()));
+        	simpMessagingTemplate.convertAndSendToUser(user.getName(), "/queue/attribute/values/hit", new Hit(attributeResponse.getValues().size(), scroll.getTotalHits()));
         	
         	scrollId = scroll.getScrollId();
         	scroll = template.searchScrollContinue(scrollId, 1000, AttributeValue.class, index);
