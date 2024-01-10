@@ -16,9 +16,6 @@ import org.springframework.data.elasticsearch.core.query.StringQuery;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.Ordering;
-import com.google.common.primitives.Floats;
-
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,24 +30,6 @@ import es.uniovi.avib.morphing.projections.backend.domain.Hit;
 public class AttributeService {
 	private ElasticsearchOperations operations;
 	private SimpMessagingTemplate simpMessagingTemplate;
-	
-	private AttributeResponse normalizeMinMax(AttributeResponse attributeResponse) {
-		Ordering<AttributeValue> o = new Ordering<AttributeValue>() {
-		    @Override
-		    public int compare(AttributeValue left, AttributeValue right) {
-		        return Floats.compare(left.getValue(), right.getValue());
-		    }
-		};
-		
-		float maxAttribute = o.max(attributeResponse.getValues()).getValue();
-		float minAttribute = o.min(attributeResponse.getValues()).getValue();
-		
-		for (int i = 0; i < attributeResponse.getValues().size(); i++) {			
-			attributeResponse.getValues().get(i).setValue((attributeResponse.getValues().get(i).getValue() - minAttribute) / (maxAttribute - minAttribute));
-		}
-		
-		return attributeResponse;
-	}
 	
 	@SuppressWarnings("unchecked")
 	public List<AttributeName> findAllAttributeNamesBySample(String indexName, String sampleId, Principal user) {
@@ -128,7 +107,7 @@ public class AttributeService {
         template.searchScrollClear(scrollId);
         
         log.info("Total document hits {} for the index {}", attributeResponse.getValues().size(), indexName);  
-        
-        return normalizeMinMax(attributeResponse);        
+               
+        return attributeResponse;
 	}	
 }
