@@ -9,26 +9,26 @@ management:
         enabled: true
             
 # using ingress
-spring:
-  elasticsearch:
-    host: minikube.io
-    port: 443
-    pathPrefix: /elastic/
-    verifyHostnames: false
-    validateCertificates: false
-    username: elastic
-    password: password
-
-# from using proxy port-forward  
 #spring:
 #  elasticsearch:
-#    host: localhost
-#    port: 9200
-#    pathPrefix: /
+#    host: minikube.io
+#    port: 443
+#    pathPrefix: /elastic/
 #    verifyHostnames: false
 #    validateCertificates: false
 #    username: elastic
 #    password: password
+
+# from using proxy port-forward  
+spring:
+  elasticsearch:
+    host: localhost
+    port: 9200
+    pathPrefix: /
+    verifyHostnames: false
+    validateCertificates: false
+    username: elastic
+    password: password
     
 # using proxy port-forward and a domain included in the certificate sign    
 #spring:
@@ -36,6 +36,17 @@ spring:
 #    host: avib-elastic
 #    port: 9200
 #    pathPrefix: /
+#    verifyHostnames: false
+#    validateCertificates: false
+#    username: elastic
+#    password: password
+
+# using proxy port-forward and a domain included in the certificate sign    
+#spring:
+#  elasticsearch:
+#    host: avispe.edv.uniovi.es
+#    port: 443
+#    pathPrefix: /kubernetes/elastic
 #    verifyHostnames: false
 #    validateCertificates: false
 #    username: elastic
