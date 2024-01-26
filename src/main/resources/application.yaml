@@ -52,6 +52,10 @@ spring:
 #    username: elastic
 #    password: password
 
+analytics:
+  host: localhost
+  port: 5000
+  
 ---
 
 # Elasticsearch server connection from AVIB kubernetes cluster
@@ -78,6 +82,10 @@ spring:
     username: elastic
     password: password    
     
+analytics:
+  host: uniovi-avib-morphingprojections-backend-analytics
+  port: 5000
+      
 # using ingress
 #spring:
 #  config:
