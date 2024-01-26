@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SampleRequest {
-	private String name;
+	private String index;
 }

@@ -21,11 +21,11 @@ public class SampleWebSocketController {
 	
 	@MessageMapping("/findAll")
 	@SendToUser("/queue/samples")
-	public List<Object> findAll(SampleRequest index,  Principal user) throws Exception {
-    	log.info("Start search documents for the index {}", index.getName());
+	public List<Object> findAll(SampleRequest sampleRequest,  Principal user) throws Exception {
+    	log.info("Start search documents for the index {}", sampleRequest.getIndex());
 	    
     	long start = System.currentTimeMillis();  
-    	List<Object> samples = sampleService.findAll(index.getName(), user);
+    	List<Object> samples = sampleService.findAll(sampleRequest.getIndex(), user);
         long end = System.currentTimeMillis();
         
         log.info("Elapsed Time: "+ (end - start) / 1000F + " seconds");
