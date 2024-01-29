@@ -53,5 +53,15 @@
     "name": "analytics.port",
     "type": "java.lang.String",
     "description": "A description for 'analytics.port'"
+  },
+  {
+    "name": "annotation.host",
+    "type": "java.lang.String",
+    "description": "A description for 'annotation.host'"
+  },
+  {
+    "name": "annotation.port",
+    "type": "java.lang.String",
+    "description": "A description for 'annotation.port'"
   }
 ]}

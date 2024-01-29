@@ -14,13 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 @Service
-public class AnalyticsService {
-	//@Autowired
+public class AnalyticsService {	
 	private RestTemplate restTemplate;
 	
 	private AnalyticsConfig analyticsConfig;
 	
-    
 	public Object executeHistogram(Object data) {			
 		log.info("Execute histogram analytics from service");
 		
