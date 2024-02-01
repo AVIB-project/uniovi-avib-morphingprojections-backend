@@ -20,6 +20,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value="/analytics", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AnalyticsController {
 	private AnalyticsService analyticsService;
+
+	@PostMapping("/tsne")
+	public String executeTSNE(@RequestBody Object data) throws Exception {
+		log.info("Execute t-SNE analytics from controller");
+	            
+        Object result = analyticsService.executeTSNE(data);
+        
+        Gson gson = new Gson();
+        String response = gson.toJson(result,List.class);
+                
+        return response;
+	}
 	
 	@PostMapping("/histogram")
 	public String executeHistogram(@RequestBody Object data) throws Exception {
@@ -31,5 +43,17 @@ public class AnalyticsController {
         String response = gson.toJson(result,List.class);
                 
         return response;
-	}	
+	}
+	
+	@PostMapping("/logistic_regression")
+	public String executeLogisticregression(@RequestBody Object data) throws Exception {
+		log.info("Execute logistic regression analytics from controller");
+	            
+        Object result = analyticsService.executeLogisticRegression(data);
+        
+        Gson gson = new Gson();
+        String response = gson.toJson(result,List.class);
+                
+        return response;
+	}		
 }

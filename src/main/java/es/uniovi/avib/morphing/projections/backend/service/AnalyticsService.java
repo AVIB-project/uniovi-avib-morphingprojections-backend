@@ -18,6 +18,21 @@ public class AnalyticsService {
 	private RestTemplate restTemplate;
 	
 	private AnalyticsConfig analyticsConfig;
+
+	public Object executeTSNE(Object data) {			
+		log.info("Execute t-SNE analytics from service");
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<Object> request = new HttpEntity<Object>(data, headers);
+		
+		String url = "http://" + analyticsConfig.getHost() + ":" + analyticsConfig.getPort() + "/analytics/tsne";
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.postForEntity(url, request, Object.class);
+		
+		return responseEntityStr.getBody();
+	}
 	
 	public Object executeHistogram(Object data) {			
 		log.info("Execute histogram analytics from service");
@@ -33,4 +48,19 @@ public class AnalyticsService {
 		
 		return responseEntityStr.getBody();
 	}
+	
+	public Object executeLogisticRegression(Object data) {			
+		log.info("Execute logistic regression analytics from service");
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<Object> request = new HttpEntity<Object>(data, headers);
+		
+		String url = "http://" + analyticsConfig.getHost() + ":" + analyticsConfig.getPort() + "/analytics/logistic_regression";
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.postForEntity(url, request, Object.class);
+		
+		return responseEntityStr.getBody();
+	}	
 }
