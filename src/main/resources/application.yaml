@@ -52,6 +52,10 @@ spring:
 #    username: elastic
 #    password: password
 
+organization:
+  host: localhost
+  port: 8082
+  
 annotation:
   host: localhost
   port: 8081
@@ -86,6 +90,10 @@ spring:
     username: elastic
     password: password    
 
+organization:
+  host: uniovi-avib-morphingprojections-backend-organization
+  port: 8082
+  
 annotation:
   host: uniovi-avib-morphingprojections-backend-annotation
   port: 8081
