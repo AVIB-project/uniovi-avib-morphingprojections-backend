@@ -65,31 +65,7 @@ public class OrganizationController {
 			
 		organizationService.deleteById(organizationId);					
 	}	
-	
-	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/aggregate")
-	public String findAllAggregate() {
-		log.info("find all annotations from controller");
-        
-        Object result = organizationService.findAllAggregate();
-        
-        Gson gson = new Gson();
-        String response = gson.toJson(result, List.class);
-                
-        return response;			
-	}
-	
-	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/{organizationId}/aggregate")	
-	public String findByIdAggregate(@PathVariable String organizationId) {
-		log.info("find by id {} organizations from controller", organizationId);
 		
-		Object result = organizationService.findByIdAggregate(organizationId);
-													
-        Gson gson = new Gson();
-        String response = gson.toJson(result, Object.class);
-                
-        return response;	
-	}
-	
 	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/users/{userId}/aggregate")	
 	public String findByUserAggregate(@PathVariable String userId) {
 		log.info("find by id {} organizations from controller", userId);

@@ -70,27 +70,7 @@ public class OrganizationService {
 		  
 		restTemplate.exchange(url, HttpMethod.DELETE, entity, Object.class);
 	}
-	
-	public Object findAllAggregate() {
-		log.info("find all organizations from aggregate service");
-				
-		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/organizations/aggregate";
 		
-		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
-		
-		return responseEntityStr.getBody();		
-	}
-	
-	public Object findByIdAggregate(String organizationId) {
-		log.debug("findById: found organization with id {} from aggregate service", organizationId);
-		
-		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/organizations/" + organizationId + "/aggregate";
-		
-		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
-		
-		return responseEntityStr.getBody();
-	}	
-	
 	public Object findByUserAggregate(String userId) {
 		log.debug("findById: found user with id {} from aggregate service", userId);
 		
