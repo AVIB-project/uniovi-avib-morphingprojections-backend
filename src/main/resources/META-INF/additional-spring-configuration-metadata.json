@@ -73,5 +73,15 @@
     "name": "organization.port",
     "type": "java.lang.String",
     "description": "A description for 'organization.port'"
+  },
+  {
+    "name": "resource.host",
+    "type": "java.lang.String",
+    "description": "A description for 'resource.host'"
+  },
+  {
+    "name": "resource.port",
+    "type": "java.lang.String",
+    "description": "A description for 'resource.port'"
   }
 ]}

@@ -64,6 +64,10 @@ analytics:
   host: localhost
   port: 5000
   
+resource:
+  host: localhost
+  port: 8083
+    
 ---
 
 # Elasticsearch server connection from AVIB kubernetes cluster
@@ -101,7 +105,11 @@ annotation:
 analytics:
   host: uniovi-avib-morphingprojections-backend-analytics
   port: 5000
-      
+
+resource:
+  host: uniovi-avib-morphingprojections-backend-resouce
+  port: 8083
+        
 # using ingress
 #spring:
 #  config:
