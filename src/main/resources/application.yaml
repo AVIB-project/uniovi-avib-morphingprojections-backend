@@ -51,19 +51,19 @@ spring:
 #    validateCertificates: false
 #    username: elastic
 #    password: password
+      
+analytics:
+  host: localhost
+  port: 5000
+
+annotation:
+  host: localhost
+  port: 8081
 
 organization:
   host: localhost
   port: 8082
-  
-annotation:
-  host: localhost
-  port: 8081
-  
-analytics:
-  host: localhost
-  port: 5000
-  
+    
 resource:
   host: localhost
   port: 8083
@@ -93,21 +93,21 @@ spring:
     validateCertificates: false
     username: elastic
     password: password    
-
-organization:
-  host: uniovi-avib-morphingprojections-backend-organization
-  port: 8082
-  
-annotation:
-  host: uniovi-avib-morphingprojections-backend-annotation
-  port: 8081
-      
+        
 analytics:
   host: uniovi-avib-morphingprojections-backend-analytics
   port: 5000
 
-resource:
-  host: uniovi-avib-morphingprojections-backend-resouce
+annotation:
+  host: uniovi-avib-morphingprojections-backend-annotation
+  port: 8081
+  
+organization:
+  host: uniovi-avib-morphingprojections-backend-organization
+  port: 8082
+  
+resource:        
+  host: uniovi-avib-morphingprojections-backend-resource
   port: 8083
         
 # using ingress
