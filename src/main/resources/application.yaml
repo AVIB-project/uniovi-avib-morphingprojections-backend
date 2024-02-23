@@ -107,7 +107,7 @@ organization:
   port: 8082
   
 resource:        
-  host: uniovi-avib-morphingprojections-backend-resource
+  host: uniovi-avib-morphingprojections-backend-storage
   port: 8083
         
 # using ingress
