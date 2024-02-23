@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 
 import com.google.gson.Gson;
 
-import es.uniovi.avib.morphing.projections.backend.service.ResourceService;
+import es.uniovi.avib.morphing.projections.backend.service.StorageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @RestController
 @RequestMapping(value="/resources", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ResourceController {
-	private ResourceService resourceService;
+public class StorageController {
+	private StorageService resourceService;
 	
     @RequestMapping(method = { RequestMethod.POST }, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE}, produces = "application/json", value = "/organizations/{organizationId}/projects/{projectId}/cases/{caseId}")
     public String uploadFiles(

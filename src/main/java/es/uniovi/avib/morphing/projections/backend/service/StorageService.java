@@ -15,15 +15,15 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import es.uniovi.avib.morphing.projections.backend.configuration.ResourceConfig;
+import es.uniovi.avib.morphing.projections.backend.configuration.StorageConfig;
 
 @Slf4j
 @AllArgsConstructor
 @Service
-public class ResourceService {	
+public class StorageService {	
 	private RestTemplate restTemplate;
 	
-	private ResourceConfig resourceConfig;
+	private StorageConfig resourceConfig;
 	
 	public Object uploadFiles(String organizationId, String projectId, String caseId, MultipartFile[] files) {
 		log.info("update files from service");

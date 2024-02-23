@@ -30,6 +30,11 @@ spring:
     username: elastic
     password: password
     
+  servlet:    
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+     
 # using proxy port-forward and a domain included in the certificate sign    
 #spring:
 #  elasticsearch:
@@ -64,7 +69,7 @@ organization:
   host: localhost
   port: 8082
     
-resource:
+storage:
   host: localhost
   port: 8083
     
@@ -93,7 +98,12 @@ spring:
     validateCertificates: false
     username: elastic
     password: password    
-        
+
+  servlet:    
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+              
 analytics:
   host: uniovi-avib-morphingprojections-backend-analytics
   port: 5000
@@ -106,7 +116,7 @@ organization:
   host: uniovi-avib-morphingprojections-backend-organization
   port: 8082
   
-resource:        
+storage:        
   host: uniovi-avib-morphingprojections-backend-storage
   port: 8083
         

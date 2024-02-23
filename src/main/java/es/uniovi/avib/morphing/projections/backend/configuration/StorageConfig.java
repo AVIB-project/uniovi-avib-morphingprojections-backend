@@ -7,10 +7,10 @@ import lombok.Getter;
 
 @Configuration
 @Getter
-public class ResourceConfig {
-    @Value("${resource.host:localhost}")
+public class StorageConfig {
+    @Value("${storage.host:localhost}")
     String host;
 
-    @Value("${resource.port:8083}")
+    @Value("${storage.port:8083}")
     String port;     
 }
