@@ -1,34 +1,44 @@
 package es.uniovi.avib.morphing.projections.backend.service;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Arrays;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.uniovi.avib.morphing.projections.backend.configuration.OrganizationConfig;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import es.uniovi.avib.morphing.projections.backend.configuration.StorageConfig;
 
 @Slf4j
 @AllArgsConstructor
 @Service
-public class StorageService {	
+public class ResourceService {
 	private RestTemplate restTemplate;
 	
-	private StorageConfig resourceConfig;
+	private OrganizationConfig organizationConfig;
 	
-	public Object uploadFiles(String organizationId, String projectId, String caseId, MultipartFile[] files) {
+	public Object findByCaseId(String caseId) {
+		log.debug("findByCaseId: found cases with id {} from service", caseId);
+		
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/resources/cases/" + caseId;
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
+		
+		return responseEntityStr.getBody();
+	}
+	
+	public Object uploadFiles(String organizationId, String projectId, String caseId, String type, String description, MultipartFile[] files) {
 		log.info("update files from service");
 				
-		String url = "http://" + resourceConfig.getHost() + ":" + resourceConfig.getPort() + "/resources"
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/resources"
 			+ "/organizations/" + organizationId
 			+ "/projects/" + projectId
 			+ "/cases/" + caseId;
@@ -37,7 +47,9 @@ public class StorageService {
 		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 		
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-		Arrays.asList(files).forEach(file -> {			
+		Arrays.asList(files).forEach(file -> {
+			body.add("type", type);		
+			body.add("description", description);		
 			body.add("file[]", file.getResource());			    					
 		});
 		
