@@ -35,7 +35,7 @@ public class ResourceService {
 		return responseEntityStr.getBody();
 	}
 	
-	public Object uploadFiles(String organizationId, String projectId, String caseId, String type, String description, MultipartFile[] files) {
+	public Object uploadResources(String organizationId, String projectId, String caseId, String type, String description, MultipartFile[] files) {
 		log.info("update files from service");
 				
 		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/resources"
@@ -58,5 +58,17 @@ public class ResourceService {
 		ResponseEntity<Object> responseEntityStr = restTemplate.postForEntity(url, requestEntity, Object.class);
 		
 		return responseEntityStr.getBody();		
-	}	
+	}
+	
+	public void deleteResource(String organizationId, String projectId, String caseId, String file) {
+		log.info("deleteResource file {} from service", file);
+		
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/resources"
+			+ "/organizations/" + organizationId
+			+ "/projects/" + projectId
+			+ "/cases/" + caseId
+			+ "/file/" + file;
+					
+		restTemplate.delete(url);  	
+	} 	
 }

@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.MediaType;
 
 import com.google.gson.Gson;
@@ -33,6 +35,18 @@ public class AnnotationController {
         return response;		
 	}
 	
+	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/cases/{caseId}")
+	public String findAllByCaseId(@PathVariable String caseId) {
+		log.info("find all annotations from controller by case id {}", caseId);
+        
+        Object result = annotationService.findAllByCaseId(caseId);
+        
+        Gson gson = new Gson();
+        String response = gson.toJson(result, List.class);
+                
+        return response;		
+	}
+	
 	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/{annotationId}")
 	public String findById(@PathVariable String annotationId) {
 		log.info("find by id {} annotations from controller", annotationId);
@@ -44,4 +58,20 @@ public class AnnotationController {
                 
         return response;		
 	}
+	
+    @RequestMapping(method = { RequestMethod.POST }, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE}, produces = "application/json", value = "/organizations/{organizationId}/projects/{projectId}/cases/{caseId}")
+    public String uploadFiles(
+    		@PathVariable String organizationId,
+    		@PathVariable String projectId,
+    		@PathVariable String caseId,
+            @RequestPart("file[]") MultipartFile[] files) {
+		log.info("upload files from controller");
+		
+		Object result = annotationService.uploadFiles(organizationId, projectId, caseId, files);
+													
+        Gson gson = new Gson();
+        String response = gson.toJson(result, Object.class);
+        
+        return response;			
+	}	
 }
