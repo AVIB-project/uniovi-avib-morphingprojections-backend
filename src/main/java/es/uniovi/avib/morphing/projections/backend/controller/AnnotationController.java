@@ -3,12 +3,15 @@ package es.uniovi.avib.morphing.projections.backend.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import com.google.gson.Gson;
 
@@ -57,6 +60,22 @@ public class AnnotationController {
         String response = gson.toJson(result, Object.class);
                 
         return response;		
+	}
+	
+	@RequestMapping(method = { RequestMethod.POST }, produces = "application/json", value = "/addAnnotation")	
+	public ResponseEntity<Object> addAnnotation(@RequestBody Object annotation) {
+		log.debug("addAnnotation from controller");
+		
+		Object annotationSaved = annotationService.addAnnotation(annotation);
+			
+		return new ResponseEntity<Object>(annotationSaved, HttpStatus.OK);			
+	}
+	
+	@RequestMapping(method = { RequestMethod.DELETE }, value = "/{annotationId}/removeAnnotationById")	
+	public void removeAnnotationById(@PathVariable String annotationId) {
+		log.debug("removeAnnotationById from controller");
+		
+		annotationService.removeAnnotationById(annotationId);		
 	}
 	
     @RequestMapping(method = { RequestMethod.POST }, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE}, produces = "application/json", value = "/organizations/{organizationId}/projects/{projectId}/cases/{caseId}")
