@@ -72,7 +72,11 @@ organization:
 storage:
   host: localhost
   port: 8083
-    
+
+flow:
+  host: localhost
+  port: 8084
+      
 ---
 
 # Elasticsearch server connection from AVIB kubernetes cluster
@@ -119,7 +123,11 @@ organization:
 storage:        
   host: uniovi-avib-morphingprojections-backend-storage
   port: 8083
-        
+
+flow:
+  host: uniovi-avib-morphingprojections-backend-storage
+  port: 8084
+          
 # using ingress
 #spring:
 #  config:
