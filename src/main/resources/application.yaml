@@ -125,7 +125,7 @@ storage:
   port: 8083
 
 flow:
-  host: uniovi-avib-morphingprojections-backend-storage
+  host: uniovi-avib-morphingprojections-backend-flow
   port: 8084
           
 # using ingress
