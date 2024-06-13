@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class AttributeValueRequest {
 	String index;
-	String name;
+	String attributeId;
 	String projection;
-
 }

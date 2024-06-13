@@ -32,18 +32,18 @@ public class AttributeService {
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
 	@SuppressWarnings("unchecked")
-	public List<AttributeName> findAllAttributeNamesBySample(String indexName, String sampleId, Principal user) {
+	public List<AttributeName> findAllAttributeNames(String indexName, Principal user) {
 		AbstractElasticsearchTemplate template = (AbstractElasticsearchTemplate)operations;
 		
     	IndexCoordinates index = IndexCoordinates.of(indexName);
     	
-    	String filter = "{\"match\":{\"sample_id\":{\"query\":\"" + sampleId + "\",\"operator\":\"and\"}}}";
+    	String filter = "{\"match_all\":{}}";
     	
     	Query queryFilter = StringQuery.builder(filter).build();
     	    	    	
     	Query query = NativeQuery.builder()
     			.withSourceFilter(new FetchSourceFilter(
-    					new String[] {"attribute"}, 
+    					new String[] {"attribute_id"}, 
     					null))
     			.withQuery(queryFilter)
     			.build();
@@ -70,17 +70,17 @@ public class AttributeService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public AttributeResponse findAllAttributeValuesByName(String indexName, String attributeName, String attributeProjection, Principal user) {
+	public AttributeResponse findAllAttributeValuesByAttributeId(String indexName, String attributeId, String attributeProjection, Principal user) {
 		AbstractElasticsearchTemplate template = (AbstractElasticsearchTemplate)operations;
 		
     	IndexCoordinates index = IndexCoordinates.of(indexName);
 
     	AttributeResponse attributeResponse = new AttributeResponse();
-    	attributeResponse.setAttribute(attributeName);
+    	attributeResponse.setAttributeId(attributeId);
     	attributeResponse.setProjection(attributeProjection);
     	attributeResponse.setValues(new ArrayList<AttributeValue>());
     	
-    	String filter = "{\"match\":{\"attribute\":\""+ attributeName + "\"}}";
+    	String filter = "{\"match\":{\"attribute_id\":\""+ attributeId + "\"}}";
     	
     	Query queryFilter = StringQuery.builder(filter).build();
     	

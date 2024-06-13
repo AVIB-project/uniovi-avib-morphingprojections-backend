@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AttributeResponse {
-	private String attribute;
+	private String attributeId;
 	private String projection;
 	List<AttributeValue> values;
 }

@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AttributeName {
-	@Field("attribute")
-	private String name;
+	@Field("attribute_id")
+	private String attributeId;
 }
