@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import es.uniovi.avib.morphing.projections.backend.configuration.StorageConfig;
 import es.uniovi.avib.morphing.projections.backend.domain.ExpressionRequest;
+import es.uniovi.avib.morphing.projections.backend.domain.ProjectionRequest;
 
 @Slf4j
 @AllArgsConstructor
@@ -21,14 +22,30 @@ public class ExpressionService {
 	private RestTemplate restTemplate;
 	
 	private StorageConfig storageConfig;
-	
-	public Object findAllExpressionsByAnnotation(ExpressionRequest expressionRequest) {
-		log.info("find all expressions by annotation from service");
+
+	public Object findAnnotationsName(ProjectionRequest projectionRequest) {
+		log.info("find all annotations name from service");
 				
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
-		String url = "http://" + storageConfig.getHost() + ":" + storageConfig.getPort() + "/expressions/annotation";
+		String url = "http://" + storageConfig.getHost() + ":" + storageConfig.getPort() + "/expressions/annotations/name";
+			
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		HttpEntity entity = new HttpEntity(projectionRequest ,headers);
+		  
+		ResponseEntity<Object> responseEntityStr = restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
+		
+		return responseEntityStr.getBody();	
+	}
+	
+	public Object findAllAnnotationsValueByAnnotationId(ExpressionRequest expressionRequest) {
+		log.info("find all annotations value by annotation id from service");
+				
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		String url = "http://" + storageConfig.getHost() + ":" + storageConfig.getPort() + "/expressions/annotations/value";
 			
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity entity = new HttpEntity(expressionRequest ,headers);
