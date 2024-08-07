@@ -1,6 +1,6 @@
 # Description
 
-PoC Backend microservice to recover random datasets generated for Elasticsearch
+Gateway Microservice
 
 # Configurations
 
@@ -60,6 +60,11 @@ Local test of your image. Start a container like this:
 
 ```
 docker run --name poc-uniovi-avib-data-projection-backend -p 8080:8080 -d poc-uniovi-avib-data-projection-backend
+```
+
+# API Documentation Portal
+```
+http://localhost:8080/swagger-ui/index.html
 ```
 
 # Microservices architecture
