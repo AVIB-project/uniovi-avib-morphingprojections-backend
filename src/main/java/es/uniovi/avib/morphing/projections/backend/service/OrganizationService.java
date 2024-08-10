@@ -70,14 +70,4 @@ public class OrganizationService {
 		  
 		restTemplate.exchange(url, HttpMethod.DELETE, entity, Object.class);
 	}
-		
-	public Object findByUserAggregate(String userId) {
-		log.debug("findById: found user with id {} from aggregate service", userId);
-		
-		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/cases/users/" + userId + "/aggregate";
-		
-		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
-		
-		return responseEntityStr.getBody();
-	}	
 }

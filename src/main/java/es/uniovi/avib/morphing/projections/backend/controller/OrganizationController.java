@@ -62,17 +62,5 @@ public class OrganizationController {
 		log.debug("deleteById: remove annotation with annotationId: {}", organizationId);
 			
 		organizationService.deleteById(organizationId);					
-	}	
-		
-	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/users/{userId}/aggregate")	
-	public String findByUserAggregate(@PathVariable String userId) {
-		log.info("find by id {} organizations from controller", userId);
-		
-		Object result = organizationService.findByUserAggregate(userId);
-													
-        Gson gson = new Gson();
-        String response = gson.toJson(result, Object.class);
-                
-        return response;	
-	}	
+	}
 }

@@ -63,7 +63,7 @@ public class UserController {
 		userService.deleteById(userId);					
 	}	
 		
-	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/{userId}/aggregate")	
+	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/{userId}/cases")	
 	public String findCasesByUserAggregate(@PathVariable String userId) {
 		log.info("find by id {} cases from controller", userId);
 		
