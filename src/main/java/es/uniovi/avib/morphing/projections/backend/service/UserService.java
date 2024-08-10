@@ -31,6 +31,16 @@ public class UserService {
 		return responseEntityStr.getBody();		
 	}
 	
+	public Object findAllByOrganizationId(String organizationId) {
+		log.debug("findById: found user by Organization id {} from service", organizationId);
+				
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/organizations/" + organizationId  + "users";
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
+		
+		return responseEntityStr.getBody();		
+	}
+	
 	public Object findById(String userId) {
 		log.debug("findById: found user with id {} from service", userId);
 		
@@ -71,10 +81,10 @@ public class UserService {
 		restTemplate.exchange(url, HttpMethod.DELETE, entity, Object.class);
 	}
 		
-	public Object findCasesByUserAggregate(String userId) {
+	public Object findCasesByUser(String userId) {
 		log.debug("findById: found cases with user id {} from aggregate service", userId);
 		
-		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/cases/users/" + userId + "/aggregate";
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/" + userId + "/cases";
 		
 		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
 		

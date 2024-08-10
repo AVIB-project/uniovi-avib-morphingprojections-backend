@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
-import es.uniovi.avib.morphing.projections.backend.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import es.uniovi.avib.morphing.projections.backend.service.UserService;
+
 
 @Slf4j
 @AllArgsConstructor
@@ -34,6 +36,18 @@ public class UserController {
         return response;			
 	}
 
+	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/organizations/{organizationId}")
+	public String findAllByOrganizationId(@PathVariable String organizationId) {
+		log.debug("findById: found user by Organization id {} from controller", organizationId);
+		
+		Object result = userService.findAllByOrganizationId(organizationId);
+        
+        Gson gson = new Gson();
+        String response = gson.toJson(result, List.class);
+        
+        return response;			
+	}
+	
 	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/{userId}")	
 	public String findById(@PathVariable String userId) {
 		log.info("find by id {} user from controller", userId);
@@ -67,7 +81,7 @@ public class UserController {
 	public String findCasesByUserAggregate(@PathVariable String userId) {
 		log.info("find by id {} cases from controller", userId);
 		
-		Object result = userService.findCasesByUserAggregate(userId);
+		Object result = userService.findCasesByUser(userId);
 													
         Gson gson = new Gson();
         String response = gson.toJson(result, Object.class);
