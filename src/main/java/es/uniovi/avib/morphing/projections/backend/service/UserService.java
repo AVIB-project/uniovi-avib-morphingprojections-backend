@@ -34,7 +34,7 @@ public class UserService {
 	public Object findAllByOrganizationId(String organizationId) {
 		log.debug("findById: found user by Organization id {} from service", organizationId);
 				
-		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/organizations/" + organizationId  + "users";
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/organizations/" + organizationId;
 		
 		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
 		
@@ -57,7 +57,7 @@ public class UserService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
-		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/organizations";
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users";
 			
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity entity = new HttpEntity(user ,headers);
