@@ -73,12 +73,9 @@ public class UserService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
-		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users";
-			
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		HttpEntity entity = new HttpEntity(userId ,headers);
-		  
-		restTemplate.exchange(url, HttpMethod.DELETE, entity, Object.class);
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/" + userId;
+					  
+		restTemplate.exchange(url, HttpMethod.DELETE, null, Object.class);
 	}
 		
 	public Object findCasesByUser(String userId) {
