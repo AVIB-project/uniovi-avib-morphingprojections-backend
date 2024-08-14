@@ -60,6 +60,18 @@ public class UserController {
         return response;	
 	}
 	
+	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/{email}/email")	
+	public String findByEmail(@PathVariable String email) {
+		log.info("find by email {} user from controller", email);
+		
+		Object result = userService.findByEmail(email);
+													
+        Gson gson = new Gson();
+        String response = gson.toJson(result, Object.class);
+                
+        return response;	
+	}
+	
 	@RequestMapping(method = { RequestMethod.POST }, produces = "application/json")	
 	public String save(@RequestBody Object user) {		
 		Object userSaved = userService.save(user);

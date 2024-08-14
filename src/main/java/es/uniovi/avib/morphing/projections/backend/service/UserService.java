@@ -51,6 +51,16 @@ public class UserService {
 		return responseEntityStr.getBody();
 	}
 	
+	public Object findByEmail(String email) {
+		log.debug("findById: found user with email {} from service", email);
+		
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/" + email + "/email";
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
+		
+		return responseEntityStr.getBody();
+	}
+	
 	public Object save(Object user) {
 		log.debug("save user from service");
 
