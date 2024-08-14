@@ -82,7 +82,7 @@ public class UserController {
         return response;			
 	}
 
-	@RequestMapping(method = { RequestMethod.DELETE },value = "/{userId}")	
+	@RequestMapping(method = { RequestMethod.DELETE }, value = "/{userId}")	
 	public void deleteById(@PathVariable String userId) {		
 		log.debug("deleteById: remove user with userId: {}", userId);
 			
@@ -99,5 +99,10 @@ public class UserController {
         String response = gson.toJson(result, Object.class);
                 
         return response;	
+	}
+	
+	@RequestMapping(method = { RequestMethod.POST }, produces = "application/json", value = "/{userId}/resetPassword")	
+	public void resetPassword(@PathVariable String userId, @RequestBody String password) {		
+		userService.resetPassword(userId, password);			
 	}	
 }

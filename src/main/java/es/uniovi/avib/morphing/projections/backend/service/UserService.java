@@ -96,5 +96,19 @@ public class UserService {
 		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
 		
 		return responseEntityStr.getBody();
-	}	
+	}
+	
+	public void resetPassword(String userId, String password) {
+		log.debug("resetPassword: found with user id {} from aggregate service", userId);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/" + userId + "/resetPassword";
+		
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		HttpEntity entity = new HttpEntity(password ,headers);
+		  
+		restTemplate.exchange(url, HttpMethod.POST, entity, Void.class);
+	}
 }
