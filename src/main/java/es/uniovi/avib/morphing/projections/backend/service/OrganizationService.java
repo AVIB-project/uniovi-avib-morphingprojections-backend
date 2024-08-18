@@ -63,10 +63,10 @@ public class OrganizationService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
-		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/organizations";
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/organizations/" + organizationId;
 			
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-		HttpEntity entity = new HttpEntity(organizationId ,headers);
+		HttpEntity entity = new HttpEntity(organizationId, headers);
 		  
 		restTemplate.exchange(url, HttpMethod.DELETE, entity, Object.class);
 	}
