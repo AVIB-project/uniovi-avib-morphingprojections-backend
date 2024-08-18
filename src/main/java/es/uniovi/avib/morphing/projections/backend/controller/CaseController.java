@@ -57,7 +57,7 @@ public class CaseController {
         return response;			
 	}
 
-	@RequestMapping(method = { RequestMethod.DELETE },value = "/{organizationId}")	
+	@RequestMapping(method = { RequestMethod.DELETE },value = "/{caseId}")	
 	public void deleteById(@PathVariable String caseId) {		
 		log.debug("deleteById: remove case with caseId: {}", caseId);
 			

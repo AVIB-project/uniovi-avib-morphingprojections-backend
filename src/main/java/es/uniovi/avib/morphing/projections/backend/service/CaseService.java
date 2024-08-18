@@ -63,7 +63,7 @@ public class CaseService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
-		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/cases";
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/cases/" + caseId;
 			
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity entity = new HttpEntity(caseId ,headers);
