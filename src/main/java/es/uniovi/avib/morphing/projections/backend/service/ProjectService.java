@@ -73,7 +73,7 @@ public class ProjectService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
-		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/projects";
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/projects/" + projectId;
 			
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity entity = new HttpEntity(projectId ,headers);
