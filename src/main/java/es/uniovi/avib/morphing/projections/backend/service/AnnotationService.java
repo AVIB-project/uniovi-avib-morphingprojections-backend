@@ -56,6 +56,16 @@ public class AnnotationService {
 		return responseEntityStr.getBody();
 	}
 	
+	public Object findAllAvailableByCase(String caseId) {
+		log.debug("findAllAvailableByCase: found annotation with id {} from service", caseId);
+		
+		String url = "http://" + annotationConfig.getHost() + ":" + annotationConfig.getPort() + "/annotations/cases/" + caseId + "/available";
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
+		
+		return responseEntityStr.getBody();
+	}
+	
 	public Object save(Object annotation) {
 		log.debug("save annotation from service");
 

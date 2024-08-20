@@ -39,10 +39,22 @@ public class AnnotationController {
 	}
 	
 	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/cases/{caseId}")
-	public String findAllByCaseId(@PathVariable String caseId) {
+	public String findAllByCase(@PathVariable String caseId) {
 		log.info("find all annotations from controller by case id {}", caseId);
         
         Object result = annotationService.findAllByCaseId(caseId);
+        
+        Gson gson = new Gson();
+        String response = gson.toJson(result, List.class);
+                
+        return response;		
+	}
+	
+	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/cases/{caseId}/available")
+	public String findAllAvailableByCase(@PathVariable String caseId) {
+		log.info("find all annotations from controller by case id {}", caseId);
+        
+        Object result = annotationService.findAllAvailableByCase(caseId);
         
         Gson gson = new Gson();
         String response = gson.toJson(result, List.class);
