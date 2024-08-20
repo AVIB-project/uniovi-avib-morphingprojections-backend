@@ -112,20 +112,6 @@ public class AnnotationService {
 		return responseEntityStr.getBody();
 	}
 	
-	public void removeAnnotationById(String annotationId ) {
-		log.debug("removeById annotation from service");
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		
-		String url = "http://" + annotationConfig.getHost() + ":" + annotationConfig.getPort() + "/annotations/" + annotationId + "/removeAnnotationById";
-			
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		HttpEntity entity = new HttpEntity(annotationId ,headers);
-		  
-		restTemplate.exchange(url, HttpMethod.DELETE, entity, Object.class);
-	}
-	
 	public Object uploadFiles(String organizationId, String projectId, String caseId, MultipartFile[] files) {
 		log.info("update files from service");
 				
