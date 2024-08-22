@@ -96,22 +96,6 @@ public class AnnotationService {
 		restTemplate.exchange(url, HttpMethod.DELETE, entity, Object.class);
 	}
 	
-	public Object addAnnotation(Object annotation) {
-		log.debug("addAnnotation annotation from service");
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		
-		String url = "http://" + annotationConfig.getHost() + ":" + annotationConfig.getPort() + "/annotations/addAnnotation";
-			
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		HttpEntity entity = new HttpEntity(annotation ,headers);
-		  
-		ResponseEntity<Object> responseEntityStr = restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
-		
-		return responseEntityStr.getBody();
-	}
-	
 	public Object uploadFiles(String organizationId, String projectId, String caseId, MultipartFile[] files) {
 		log.info("update files from service");
 				

@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 
 import com.google.gson.Gson;
 
@@ -74,13 +72,14 @@ public class AnnotationController {
         return response;		
 	}
 	
-	@RequestMapping(method = { RequestMethod.POST }, produces = "application/json", value = "/addAnnotation")	
-	public ResponseEntity<Object> addAnnotation(@RequestBody Object annotation) {
-		log.debug("addAnnotation from controller");
-		
-		Object annotationSaved = annotationService.addAnnotation(annotation);
+	@RequestMapping(method = { RequestMethod.POST }, produces = "application/json")	
+	public String save(@RequestBody Object user) {		
+		Object annotationSaved = annotationService.save(user);
 			
-		return new ResponseEntity<Object>(annotationSaved, HttpStatus.OK);			
+        Gson gson = new Gson();
+        String response = gson.toJson(annotationSaved);
+        
+        return response;			
 	}
 		
     @RequestMapping(method = { RequestMethod.POST }, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE}, produces = "application/json", value = "/organizations/{organizationId}/projects/{projectId}/cases/{caseId}")
@@ -98,4 +97,11 @@ public class AnnotationController {
         
         return response;			
 	}	
+    
+	@RequestMapping(method = { RequestMethod.DELETE },value = "/{annotationId}")	
+	public void deleteById(@PathVariable String annotationId) {		
+		log.debug("deleteById: remove annotation with annotationId: {}", annotationId);
+			
+		annotationService.deleteById(annotationId);					
+	}    
 }

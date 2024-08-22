@@ -59,6 +59,18 @@ public class UserController {
                 
         return response;	
 	}
+
+	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/{externalId}/external")	
+	public String findByExternalId(@PathVariable String externalId) {
+		log.info("findByExternalId {} external from controller", externalId);
+		
+		Object result = userService.findByExternalId(externalId);
+													
+        Gson gson = new Gson();
+        String response = gson.toJson(result, Object.class);
+                
+        return response;	
+	}
 	
 	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/{email}/email")	
 	public String findByEmail(@PathVariable String email) {

@@ -51,6 +51,16 @@ public class UserService {
 		return responseEntityStr.getBody();
 	}
 	
+	public Object findByExternalId(String externalId) {
+		log.debug("findByExternalId: found user with external id {} from service", externalId);
+		
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/" + externalId + "/external";
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
+		
+		return responseEntityStr.getBody();
+	}
+	
 	public Object findByEmail(String email) {
 		log.debug("findById: found user with email {} from service", email);
 		
