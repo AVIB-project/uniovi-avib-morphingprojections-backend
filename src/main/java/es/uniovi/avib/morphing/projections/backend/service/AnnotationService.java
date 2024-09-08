@@ -56,7 +56,7 @@ public class AnnotationService {
 		return responseEntityStr.getBody();
 	}
 	
-	public Object findAllAvailableByCase(String caseId) {
+	public Object findAllAvailableByCaseId(String caseId) {
 		log.debug("findAllAvailableByCase: found annotation with id {} from service", caseId);
 		
 		String url = "http://" + annotationConfig.getHost() + ":" + annotationConfig.getPort() + "/annotations/cases/" + caseId + "/available";
