@@ -7,10 +7,10 @@ import lombok.Getter;
 
 @Configuration
 @Getter
-public class FlowConfig {
-    @Value("${flow.host:localhost}")
+public class JobConfig {
+    @Value("${job.host:localhost}")
     String host;
 
-    @Value("${flow.port:8084}")
+    @Value("${job.port:8084}")
     String port;
 }

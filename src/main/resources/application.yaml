@@ -73,7 +73,7 @@ storage:
   host: localhost
   port: 8083
 
-flow:
+job:
   host: localhost
   port: 8084
       
