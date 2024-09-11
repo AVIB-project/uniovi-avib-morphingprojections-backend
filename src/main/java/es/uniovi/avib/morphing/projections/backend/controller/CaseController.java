@@ -59,6 +59,18 @@ public class CaseController {
         return response;	
 	}
 	
+	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/organizations/{organizationId}/users/{userId}/total")	
+	public String findTotalCasesByOrganizationAndUser(@PathVariable String organizationId, @PathVariable String userId) {
+		log.info("findCasesByOrganizationAndUser organizationId {} and userId {} from controller", organizationId, userId);
+		
+		Object result = caseService.findTotalCasesByOrganizationAndUser(organizationId, userId);
+													
+        Gson gson = new Gson();
+        String response = gson.toJson(result, Object.class);
+                
+        return response;	
+	}
+	
 	@RequestMapping(method = { RequestMethod.POST }, produces = "application/json")	
 	public String save(@RequestBody Object _case) {		
 		Object organizationSaved = caseService.save(_case);

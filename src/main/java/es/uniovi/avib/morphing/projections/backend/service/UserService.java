@@ -32,9 +32,19 @@ public class UserService {
 	}
 	
 	public Object findAllByOrganizationId(String organizationId) {
-		log.debug("findById: found user by Organization id {} from service", organizationId);
+		log.debug("findAllByOrganizationId: found user by Organization id {} from service", organizationId);
 				
 		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/organizations/" + organizationId;
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
+		
+		return responseEntityStr.getBody();		
+	}
+	
+	public Object findTotalUsersByOrganizationId(String organizationId) {
+		log.debug("findTotalUsersByOrganizationId: found total users by Organization id {} from service", organizationId);
+				
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/organizations/" + organizationId + "/total";
 		
 		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
 		

@@ -41,6 +41,16 @@ public class CaseService {
 		return responseEntityStr.getBody();
 	}
 	
+	public Object findTotalCasesByOrganizationAndUser(String organizationId, String caseId) {
+		log.debug("findById: found case with organizationId {} and caseId {} from service", organizationId, caseId);
+		
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/cases/organizations/" + organizationId + "/users/" + caseId + "/total";
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
+		
+		return responseEntityStr.getBody();
+	}
+	
 	public Object findById(String caseId) {
 		log.debug("findById: found case with id {} from service", caseId);
 		

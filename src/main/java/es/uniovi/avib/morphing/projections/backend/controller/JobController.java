@@ -38,6 +38,15 @@ public class JobController {
         return response;			
 	}
 	
+	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/cases/{caseId}/total")	
+	public String findTotalJobsByCaseId(@PathVariable String caseId) {
+		log.info("find all jobs from controller");
+        
+        Object response = jobService.findTotalJobsByCaseId(caseId);
+           
+        return response.toString();			
+	}
+	
 	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/{jobName}/getJobLogs")	
 	public String getJobLogs(@PathVariable String jobName) {
 		log.info("find all jobs from controller");

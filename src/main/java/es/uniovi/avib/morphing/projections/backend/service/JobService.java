@@ -32,6 +32,16 @@ public class JobService {
 		return responseEntityStr.getBody();		
 	}
 	
+	public Object findTotalJobsByCaseId(String caseId) {
+		log.info("find all jobs with caseId with name {} from service", caseId);
+				
+		String url = "http://" + jobConfig.getHost() + ":" + jobConfig.getPort() + "/jobs/cases/" + caseId + "/total";
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
+		
+		return responseEntityStr.getBody();		
+	}
+	
 	public Object getJobLogs(String jobName) {
 		log.debug("getJobLogs: found jobs with name jobName {} from service", jobName);
 		

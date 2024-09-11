@@ -48,6 +48,18 @@ public class UserController {
         return response;			
 	}
 	
+	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/organizations/{organizationId}/total")
+	public String findTotalUsersByOrganizationId(@PathVariable String organizationId) {
+		log.debug("findById: found user by Organization id {} from controller", organizationId);
+		
+		Object result = userService.findTotalUsersByOrganizationId(organizationId);
+        
+        Gson gson = new Gson();
+        String response = gson.toJson(result, List.class);
+        
+        return response;			
+	}
+	
 	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/{userId}")	
 	public String findById(@PathVariable String userId) {
 		log.info("find by id {} user from controller", userId);
