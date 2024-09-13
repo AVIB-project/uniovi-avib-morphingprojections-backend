@@ -131,4 +131,20 @@ public class UserService {
 		  
 		restTemplate.exchange(url, HttpMethod.POST, entity, Void.class);
 	}
+	
+	public Object inviteUser(Object invitationData) {
+		log.debug("save user from service");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/inviteUser";
+			
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		HttpEntity entity = new HttpEntity(invitationData ,headers);
+		  
+		ResponseEntity<Object> responseEntityStr = restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
+		
+		return responseEntityStr.getBody();
+	}	
 }

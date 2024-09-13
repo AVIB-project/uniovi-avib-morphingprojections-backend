@@ -129,4 +129,11 @@ public class UserController {
 	public void resetPassword(@PathVariable String userId, @RequestBody String password) {		
 		userService.resetPassword(userId, password);			
 	}	
+	
+	@RequestMapping(method = { RequestMethod.POST }, produces = "application/json", value = "/inviteUser")	
+	public String inviteUser(@RequestBody Object invitationData) {		
+		Object userInvited = userService.inviteUser(invitationData);
+		        
+        return userInvited.toString();
+	}	
 }
