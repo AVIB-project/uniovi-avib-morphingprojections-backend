@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -60,6 +61,25 @@ public class ResourceService {
 		return responseEntityStr.getBody();		
 	}
 	
+ 	public Object downloadFileByFilename(String organizationId, String projectId, String caseId, String file) {
+		log.info("download file from name {}", file);
+		
+		// put object into minio
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/resources"
+			+ "/organizations/" + organizationId
+			+ "/projects/" + projectId
+			+ "/cases/" + caseId
+			+ "/file/" + file;
+				
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_TYPE, "text/csv; charset=utf-8");
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        
+        ResponseEntity<byte[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, byte[].class);
+				
+		return responseEntity.getBody();
+     } 
+ 	
 	public void deleteResource(String organizationId, String projectId, String caseId, String file) {
 		log.info("deleteResource file {} from service", file);
 		
