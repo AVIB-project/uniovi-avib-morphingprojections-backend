@@ -1,4 +1,3 @@
-# Elasticsearch server connection from LOCAL device
 server:
   port: 8080
  
@@ -7,56 +6,13 @@ management:
     health:
       probes:
         enabled: true
-            
-# using ingress
-#spring:
-#  elasticsearch:
-#    host: minikube.io
-#    port: 443
-#    pathPrefix: /elastic/
-#    verifyHostnames: false
-#    validateCertificates: false
-#    username: elastic
-#    password: password
-
-# from using proxy port-forward  
+  
 spring:
-  elasticsearch:
-    host: localhost
-    port: 9200
-    pathPrefix: /
-    verifyHostnames: false
-    validateCertificates: false
-    username: elastic
-    password: password
-    
   servlet:    
     multipart:
       max-file-size: 500MB
       max-request-size: 500MB
      
-# using proxy port-forward and a domain included in the certificate sign    
-#spring:
-#  elasticsearch:
-#    host: avib-elastic
-#    port: 9200
-#    pathPrefix: /
-#    verifyHostnames: false
-#    validateCertificates: false
-#    username: elastic
-#    password: password
-
-# using proxy port-forward and a domain included in the certificate sign    
-#spring:
-#  elasticsearch:
-#    host: avispe.edv.uniovi.es
-#    port: 443
-#    pathPrefix: /kubernetes/elastic
-#    verifyHostnames: false
-#    validateCertificates: false
-#    username: elastic
-#    password: password
-      
 analytics:
   host: localhost
   port: 5000
@@ -79,7 +35,6 @@ job:
       
 ---
 
-# Elasticsearch server connection from AVIB kubernetes cluster
 server:
   port: 8080
   
@@ -93,16 +48,6 @@ spring:
   config:
     activate:
       on-profile: avib
-      
-  elasticsearch:
-    host: avib-elastic
-    port: 9200
-    pathPrefix: /
-    verifyHostnames: false
-    validateCertificates: false
-    username: elastic
-    password: password    
-
   servlet:    
     multipart:
       max-file-size: 500MB
@@ -124,22 +69,6 @@ storage:
   host: uniovi-avib-morphingprojections-backend-storage
   port: 8083
 
-flow:
-  host: uniovi-avib-morphingprojections-backend-flow
+job:
+  host: uniovi-avib-morphingprojections-backend-job
   port: 8084
-          
-# using ingress
-#spring:
-#  config:
-#    activate:
-#      on-profile: avib
-#      
-#  elasticsearch:
-#    host: avispe.edv.uniovi.es
-#    port: 443
-#    pathPrefix: /kubernetes/elastic/
-#    verifyHostnames: false
-#    validateCertificates: false
-#    caFile: ca-elastic-avib.crt
-#    username: elastic
-#    password: password
