@@ -146,5 +146,15 @@ public class UserService {
 		ResponseEntity<Object> responseEntityStr = restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
 		
 		return responseEntityStr.getBody();
+	}
+	
+	public Object getClientUserSessions(String realm) {
+		log.debug("get user sessions from %s", realm);
+		
+		String url = "http://" + organizationConfig.getHost() + ":" + organizationConfig.getPort() + "/users/realms/" + realm + "/sessions";		  
+		
+		ResponseEntity<Object> responseEntityStr = restTemplate.getForEntity(url, Object.class);
+		
+		return responseEntityStr.getBody();	
 	}	
 }

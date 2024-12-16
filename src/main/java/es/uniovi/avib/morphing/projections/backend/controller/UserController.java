@@ -135,5 +135,17 @@ public class UserController {
 		Object userInvited = userService.inviteUser(invitationData);
 		        
         return userInvited.toString();
+	}
+	
+	@RequestMapping(method = { RequestMethod.GET }, produces = "application/json", value = "/realms/{realm}/sessions")
+	public String getClientUserSessions(@PathVariable String realm) {
+		log.info("find user sessions");
+        
+        Object result = userService.getClientUserSessions(realm);
+        
+        Gson gson = new Gson();
+        String response = gson.toJson(result, List.class);
+                
+        return response;			
 	}	
 }
